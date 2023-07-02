@@ -2,11 +2,11 @@
     --text-dark: #41414D;
     --text-secondary: #737380;
     --delete: #DE3838;
+
+    font-size: 62.5%;
 }
 
 * {
-    font-size: 62.5%;
-
     padding: 0;
     margin: 0;
 
@@ -27,6 +27,10 @@ body {
     max-height: 100vh;
 
     overflow-x: hidden;
+
+    font-size: 1.6rem;
+    font-weight: 300;
+
 }
 
 body {
@@ -34,8 +38,10 @@ body {
 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    font-size: 1.6rem;
-    font-weight: 300;
+}
+
+main {
+    padding-inline: 16rem;
 }
 
 button:hover {

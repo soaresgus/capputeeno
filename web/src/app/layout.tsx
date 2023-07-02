@@ -1,8 +1,9 @@
+import { Header } from '@/components/Header';
 import './global.css';
 import StyledComponentsRegistry from '@/lib/StyledComponentsRegistry';
 import { Saira } from 'next/font/google';
 
-const saira = Saira({ subsets: ['latin'], weight: ['300', '600'] });
+const saira = Saira({ subsets: ['latin'], weight: ['300', '400', '600'] });
 
 export const metadata = {
   title: 'Capputeeno',
@@ -17,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={saira.className}>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <StyledComponentsRegistry>
+          <Header />
+          <main>{children}</main>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
