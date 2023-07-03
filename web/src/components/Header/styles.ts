@@ -8,14 +8,23 @@ export const Container = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  padding: 0 16rem;
-  height: 8rem;
+  padding: 1rem 16rem;
 
   & > div {
     display: flex;
     align-items: center;
 
     gap: 2.4rem;
+  }
+
+  @media (max-width: 1024px) {
+    padding-inline: 2rem;
+
+    flex-direction: column;
+
+    & > div {
+      width: 100%;
+    }
   }
 `;
 

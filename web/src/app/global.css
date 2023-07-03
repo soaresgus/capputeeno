@@ -2,6 +2,7 @@
     --text-dark: #41414D;
     --text-secondary: #737380;
     --delete: #DE3838;
+    --orange: #FFA585;
 
     font-size: 62.5%;
 }
@@ -19,6 +20,12 @@
 
     -webkit-text-size-adjust: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    font-family: inherit;
+}
+
+*:focus-visible {
+    outline: 1px solid #000
 }
 
 html,
@@ -40,10 +47,22 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-main {
+body>main {
     padding-inline: 16rem;
+}
+
+button {
+    background: none;
+    border: none;
+    outline: none;
 }
 
 button:hover {
     cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    body>main {
+        padding-inline: 2rem;
+    }
 }

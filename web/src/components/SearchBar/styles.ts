@@ -11,6 +11,10 @@ export const Container = styled.div`
   padding-right: 1.6rem;
 
   width: 35.2rem;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 export const Input = styled.input`
