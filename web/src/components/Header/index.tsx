@@ -18,7 +18,7 @@ export function Header() {
 
       <div>
         <SearchBar />
-        <Cart href="/carrinho">
+        <Cart href="/cart">
           <Image
             src={shoppingBag}
             alt="Ícone carrinho"
