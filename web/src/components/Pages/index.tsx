@@ -1,7 +1,6 @@
 'use client';
 import { ArrowContainer, Button, Container, NumberContainer } from './styles';
 
-import Link from 'next/link';
 import Image from 'next/image';
 
 import arrowLeft from '@/assets/arrow-left.svg';
@@ -11,22 +10,12 @@ import { useRouter } from 'next/navigation';
 
 interface IPagesProps {
   pages?: number;
+  actualPage: number;
+  setActualPage(page: number): void;
 }
 
-export function Pages({ pages = 1 }: IPagesProps) {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const pageQuery = urlParams.get('page');
-
+export function Pages({ pages = 1, actualPage, setActualPage }: IPagesProps) {
   const router = useRouter();
-
-  const [actualPage, setActualPage] = useState<number>((): number => {
-    if (pageQuery) {
-      return parseInt(pageQuery);
-    }
-
-    return 1;
-  });
 
   useEffect(() => {
     router.replace(`/?page=${actualPage}`);
