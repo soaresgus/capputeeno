@@ -1,31 +1,32 @@
+import { useFilter } from '@/context/FilterProvider/useFilter';
 import { api } from '@/lib/api';
 import { IProduct } from '@/types/product';
+import { createQuery } from '@/utils/createQuery';
 import { useQuery } from '@tanstack/react-query';
+
+async function getProducts(query: { query: string }) {
+  const response = await api.post('', query);
+
+  return response.data.data.allProducts as IProduct[];
+}
 
 export function useProducts() {
   const productsPerPage = 12;
 
+  const { category, filterBy } = useFilter();
+
   const graphqlQuery = {
-    query: `query {
-        allProducts {
-            id,
-            name,
-            image_url,
-            price_in_cents,
-            category
-        }
-      }`,
+    query: createQuery(category, filterBy),
   };
 
-  async function getProducts() {
-    const response = await api.post('', graphqlQuery);
-
-    return response.data.data.allProducts as IProduct[];
-  }
-
-  const { data: products, isLoading } = useQuery({
-    queryKey: ['products'],
-    queryFn: () => getProducts(),
+  const {
+    data: products,
+    isLoading,
+    isFetched,
+  } = useQuery({
+    queryKey: ['products', category, filterBy],
+    queryFn: () => getProducts(graphqlQuery),
+    staleTime: 5000,
   });
 
   return { productsPerPage, products, isLoading };

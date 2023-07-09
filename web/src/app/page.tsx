@@ -8,13 +8,15 @@ import { FilterBar } from '@/components/FilterBar';
 import { Pages } from '@/components/Pages';
 import { ProductCard } from '@/components/ProductCard';
 import { useProducts } from '@/hooks/useProduts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFilter } from '@/context/FilterProvider/useFilter';
 
 export default function Home() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const pageQuery = urlParams.get('page');
   const { isLoading, products, productsPerPage } = useProducts();
+  const { search } = useFilter();
 
   const [actualPage, setActualPage] = useState<number>((): number => {
     if (pageQuery) {
@@ -23,6 +25,10 @@ export default function Home() {
 
     return 1;
   });
+
+  useEffect(() => {
+    setActualPage(1);
+  }, [search]);
 
   if (isLoading) {
     return (
@@ -55,14 +61,18 @@ export default function Home() {
         setActualPage={setActualPage}
       />
       <ProductsList>
-        {products!.map((product, index) => {
-          if (
-            index >= productsPerPage * (actualPage - 1) &&
-            index <= productsPerPage * actualPage - 1
-          ) {
-            return <ProductCard key={product.id} product={product} />;
-          }
-        })}
+        {products!
+          .filter((product) =>
+            product.name.toLowerCase().includes(search!.toLowerCase())
+          )
+          .map((product, index) => {
+            if (
+              index >= productsPerPage * (actualPage - 1) &&
+              index <= productsPerPage * actualPage - 1
+            ) {
+              return <ProductCard key={product.id} product={product} />;
+            }
+          })}
       </ProductsList>
       <Pages
         pages={products!.length / productsPerPage}
