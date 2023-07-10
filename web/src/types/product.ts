@@ -6,4 +6,5 @@ export interface IProduct {
   image_url: string;
   price_in_cents: number;
   category: Category;
+  description: string;
 }
