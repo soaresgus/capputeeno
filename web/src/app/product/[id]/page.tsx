@@ -24,6 +24,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Category } from '@/types/category';
 import { formatCentsToMoney } from '@/utils/formatCentsToMoney';
 import cartIcon from '@/assets/shopping-bag-white.svg';
+import { useCart } from '@/hooks/useCart';
 
 const graphqlQuery = (id: string) => {
   return {
@@ -62,6 +63,8 @@ export default function Product({
     if (category === 't-shirts') return 'Camiseta';
     return '';
   };
+
+  const { addItem } = useCart();
 
   if (!product || isLoading) {
     return (
@@ -115,7 +118,7 @@ export default function Product({
 
           <ProductDescription>{product.description}</ProductDescription>
 
-          <AddToCartButton>
+          <AddToCartButton onClick={() => addItem(product.id)}>
             <Image src={cartIcon} alt="ícone carrinho" width={24} height={24} />
             Adicionar ao carrinho
           </AddToCartButton>
